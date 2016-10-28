@@ -1,0 +1,31 @@
+{
+  "name": "lodash-walk",
+  "version": "1.0.0",
+  "description": "Lodash walk",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabrielmoreira/lodash-walk.git"
+  },
+  "keywords": [
+    "lodash",
+    "walk",
+    "deep"
+  ],
+  "author": "Gabriel Moreira",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gabrielmoreira/lodash-walk/issues"
+  },
+  "homepage": "https://github.com/gabrielmoreira/lodash-walk#readme",
+  "dependencies": {
+    "lodash": "^4.16.4"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.1.2"
+  }
+}
