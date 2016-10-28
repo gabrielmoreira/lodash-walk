@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="https://unpkg.com/lodash@4.16.4"></script>
-    <script src="https://unpkg.com/lodash-walk@1.0.1"></script>
+    <script src="https://unpkg.com/lodash@^4"></script>
+    <script src="https://unpkg.com/lodash-walk@^1"></script>
+    <script>
+      // initialize lodashWalk
+      lodashWalk(_);
+    </script>
   </head>
 
   <body>
@@ -19,13 +23,10 @@ function(value, key, node) {
 }
 </textarea>
     <br>
-    <button id='visit'>VISIT</button>
+    <button id='visit' onclick="javascript:walk()">VISIT</button>
     <h3>OBJECT VISITOR</h3>
     <pre id="result"></pre>
     <script>
-      // initialize lodashWalk
-      lodashWalk(_);
-
       function walk() {
         try {
           var obj = {};
@@ -55,8 +56,6 @@ function(value, key, node) {
       }
 
       walk();
-
-      document.getElementById('visit').onclick = walk;
     </script>
   </body>
 
