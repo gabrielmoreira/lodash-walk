@@ -1,8 +1,9 @@
 {
   "name": "lodash-walk",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Lodash walk",
   "main": "index.js",
+  "browser": "dist/walk.min.js",
   "files": [
     "dist/*",
     "index.js"
