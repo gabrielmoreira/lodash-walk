@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://unpkg.com/lodash@4.16.4"></script>
+    <script src="https://unpkg.com/lodash-walk@1.0.1"></script>
+  </head>
+
+  <body>
+    <h3>JSON</h3>
+    <textarea id="json">{a: {c:1}, b:2}</textarea>
+    <h3>VISITOR</h3>
+<textarea id="visitor">
+// log(...)
+function(value, key, node) {
+  log("NODE: " + JSON.stringify(node))
+  log("  KEY: " + key)
+  log("  VALUE: " + JSON.stringify(value));
+  return node.id;
+}
+</textarea>
+    <br>
+    <button id='visit'>VISIT</button>
+    <h3>OBJECT VISITOR</h3>
+    <pre id="result"></pre>
+    <script>
+      // initialize lodashWalk
+      lodashWalk(_);
+
+      function walk() {
+        try {
+          var obj = {};
+          eval('obj = ' + document.getElementById('json').value);
+          var result = document.getElementById('result');
+          var visitor = null;
+          eval('visitor = ' + document.getElementById('visitor').value);
+
+          var log = function(message) {
+            result.innerText += message + '\n';
+          }
+          result.innerText = "";
+          log("------------------------------")
+          log("STARTING _.walk(json, visitor)")
+          log("------------------------------")
+          _.walk(obj, visitor);
+
+          log("\n------------------------------")
+          log("STARTING _.deepFilter(json, visitor)")
+          log("------------------------------")
+          var values = _.deepFilter(obj, visitor);
+          log("\nDEEP FILTER RESULT:");
+          log(values.map(JSON.stringify).join('\n'));
+        } catch (e) {
+          alert("Error: " + e.message + '\n\n' + (e.stack));
+        }
+      }
+
+      walk();
+
+      document.getElementById('visit').onclick = walk;
+    </script>
+  </body>
+
+</html>
