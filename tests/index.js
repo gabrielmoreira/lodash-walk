@@ -1,4 +1,4 @@
-var _ = require('../index.js');
+var _ = require('../index.js')(require('lodash'));
 
 var data = {
   a: {

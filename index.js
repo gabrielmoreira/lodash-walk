@@ -1,3 +1,4 @@
-var _ = require('lodash');
-require('./walk.js')(_);
-module.exports = _;
+var lodashWalk = require('./lib/walk.js');
+module.exports = lodashWalk;
+
+

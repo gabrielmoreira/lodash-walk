@@ -1,17 +1,18 @@
 {
   "name": "lodash-walk",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Lodash walk",
   "main": "index.js",
-  "browser": "dist/walk.min.js",
+  "browser": "dist/lodash.walk.min.js",
   "files": [
     "dist/*",
+    "lib/*",
     "index.js"
   ],
   "scripts": {
     "test": "mocha tests",
-    "walk:build:dev": "browserify --debug walk.js -s lodash-walk | exorcist dist/walk.js.map > dist/walk.js",
-    "walk:build:min": "browserify -g uglifyify --debug walk.js -s lodash-walk | exorcist dist/walk.min.js.map > dist/walk.min.js",
+    "walk:build:dev": "browserify --debug walk.js -s lodash-walk | exorcist dist/lodash.walk.js.map > dist/lodash.walk.js",
+    "walk:build:min": "browserify -g uglifyify --debug walk.js -s lodash-walk | exorcist dist/lodash.walk.min.js.map > dist/lodash.walk.min.js",
     "walk:build": "npm run walk:build:dev && npm run walk:build:min",
     "build": "npm run walk:build",
     "prepublish": "npm test && npm run build"
