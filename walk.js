@@ -39,7 +39,8 @@ module.exports = function (_, disableMixin) {
       parent.path = options.prefix;
       parent.key = options.prefix;
     }
-    _walk(obj, parent, 0, new Set());
+    if (_.isObjectLike(obj))
+      _walk(obj, parent, 0, new Set());
   }
 
   function deepMap(obj, options, visitor) {

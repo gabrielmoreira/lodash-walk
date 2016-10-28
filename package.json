@@ -1,6 +1,6 @@
 {
   "name": "lodash-walk",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Lodash walk",
   "main": "index.js",
   "browser": "dist/walk.min.js",
@@ -32,7 +32,7 @@
   },
   "homepage": "https://github.com/gabrielmoreira/lodash-walk#readme",
   "dependencies": {
-    "lodash": "^4.16.4"
+    "lodash": "^4"
   },
   "devDependencies": {
     "browserify": "^13.1.1",
