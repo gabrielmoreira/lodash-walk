@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://unpkg.com/lodash@^4"></script>
+    <script src="https://unpkg.com/lodash-walk@^1"></script>
+    <script>
+      // initialize lodashWalk
+      lodashWalk(_);
+      console.log("-----------------------------------------");
+
+      // prepare your content
+      var json = {a: 1, b: 2, c: {password: "123"}, d:[{x: {password: "456"}}]};
+      console.log("original json", JSON.stringify(json));
+
+      // find passwords
+      var passwordNodes =_.deepMap(json, {withParent: true}, function(value, key, node) {
+        if (key === 'password') {
+          if (node.parent && node.parent.value) {
+            delete node.parent.value[key];
+            return node;
+          }
+        }
+      });
+
+      // create json clone only with passwords
+      var jsonPasswords = {};
+      _.forOwn(passwordNodes, function(node) {
+        _.set(jsonPasswords, node.id, node.value);
+      });
+      console.log("passwords json", JSON.stringify(jsonPasswords));
+
+      // safe json
+      console.log("safe json", JSON.stringify(json));
+
+      // restore json
+      var restoredJson = _.merge(json, jsonPasswords);
+      console.log("restored json", JSON.stringify(restoredJson));
+
+    </script>
+  </head>
+
+</html>

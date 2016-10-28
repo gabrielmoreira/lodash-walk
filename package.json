@@ -11,10 +11,9 @@
   ],
   "scripts": {
     "test": "mocha tests",
-    "walk:build:dev": "browserify --debug walk.js -s lodash-walk | exorcist dist/lodash.walk.js.map > dist/lodash.walk.js",
-    "walk:build:min": "browserify -g uglifyify --debug walk.js -s lodash-walk | exorcist dist/lodash.walk.min.js.map > dist/lodash.walk.min.js",
-    "walk:build": "npm run walk:build:dev && npm run walk:build:min",
-    "build": "npm run walk:build",
+    "build:dev": "browserify --debug index.js -s lodash-walk | exorcist dist/lodash.walk.js.map > dist/lodash.walk.js",
+    "build:min": "browserify -g uglifyify --debug index.js -s lodash-walk | exorcist dist/lodash.walk.min.js.map > dist/lodash.walk.min.js",
+    "build": "npm run build:dev && npm run build:min",
     "prepublish": "npm test && npm run build"
   },
   "repository": {
