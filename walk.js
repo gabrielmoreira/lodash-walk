@@ -1,4 +1,4 @@
-module.exports = function (_) {
+module.exports = function (_, disableMixin) {
   function walk(obj, options, visitor) {
     if (_.isFunction(options)) {
       visitor = options;
@@ -57,5 +57,11 @@ module.exports = function (_) {
     return collected;
   }
 
-  return { walk: walk, deepFilter: deepFilter };
+  var lodashWalk = { walk: walk, deepFilter: deepFilter };
+  if (!disableMixin) _.mixin(lodashWalk);
+  return lodashWalk;
+}
+
+module.exports.noConflict = function(_) {
+  return module.exports(_, true);
 }

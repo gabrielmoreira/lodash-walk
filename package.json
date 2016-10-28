@@ -1,22 +1,19 @@
 {
   "name": "lodash-walk",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Lodash walk",
-  "main": "dist/index.min.js",
+  "main": "index.js",
   "files": [
     "dist/*",
     "index.js"
   ],
   "scripts": {
     "test": "mocha tests",
-    "index:build:dev": "browserify --debug index.js | exorcist dist/index.js.map > dist/index.js",
-    "index:build:min": "browserify -g uglifyify --debug index.js | exorcist dist/index.min.js.map > dist/index.min.js",
-    "index:build": "npm run index:build:dev && npm run index:build:min",
-    "walk:build:dev": "browserify --debug walk.js | exorcist dist/walk.js.map > dist/walk.js",
-    "walk:build:min": "browserify -g uglifyify --debug walk.js | exorcist dist/walk.min.js.map > dist/walk.min.js",
+    "walk:build:dev": "browserify --debug walk.js -s lodash-walk | exorcist dist/walk.js.map > dist/walk.js",
+    "walk:build:min": "browserify -g uglifyify --debug walk.js -s lodash-walk | exorcist dist/walk.min.js.map > dist/walk.min.js",
     "walk:build": "npm run walk:build:dev && npm run walk:build:min",
-    "build": "npm run index:build && npm run walk:build",
-    "prepublish": "npm run build"
+    "build": "npm run walk:build",
+    "prepublish": "npm test && npm run build"
   },
   "repository": {
     "type": "git",
