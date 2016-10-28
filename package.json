@@ -1,6 +1,6 @@
 {
   "name": "lodash-walk",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Lodash walk",
   "main": "index.js",
   "browser": "dist/walk.min.js",

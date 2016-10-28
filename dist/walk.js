@@ -34,7 +34,7 @@ module.exports = function (_, disableMixin) {
       })
       visited.delete(obj);
     }
-    var parent = {};
+    var parent = {value: obj};
     if (options.prefix) {
       parent.id = options.prefix;
       parent.path = options.prefix;
@@ -43,22 +43,24 @@ module.exports = function (_, disableMixin) {
     _walk(obj, parent, 0, new Set());
   }
 
-  function deepFilter(obj, options, visitor) {
+  function deepMap(obj, options, visitor) {
     if (_.isFunction(options)) {
       visitor = options;
       options = {};
     }
+    var filter = options.filter || function(result, node) {
+      return typeof(result) !== 'undefined';
+    }
     var collected = [];
-    walk(obj, options, function () {
+    walk(obj, options, function (value, key, node) {
       var result = visitor.apply(this, arguments);
-      if (result !== undefined) {
+      if (filter(result, node))
         collected.push(result);
-      }
     })
     return collected;
   }
 
-  var lodashWalk = { walk: walk, deepFilter: deepFilter };
+  var lodashWalk = { walk: walk, deepMap: deepMap };
   if (!disableMixin) _.mixin(lodashWalk);
   return lodashWalk;
 }

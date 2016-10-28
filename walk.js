@@ -33,7 +33,7 @@ module.exports = function (_, disableMixin) {
       })
       visited.delete(obj);
     }
-    var parent = {};
+    var parent = {value: obj};
     if (options.prefix) {
       parent.id = options.prefix;
       parent.path = options.prefix;
