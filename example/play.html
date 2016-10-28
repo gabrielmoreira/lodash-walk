@@ -22,6 +22,7 @@ function(value, key, node) {
   log("  ID: " + node.id)
   log("  KEY: " + key)
   log("  VALUE: " + JSON.stringify(value));
+  log("  NODE PARENT: " + JSON.stringify(node.parent));
   log("");
 
   // skip walking on node children using -> node.skip = true
@@ -61,14 +62,14 @@ function(value, key, node) {
           _.walk(obj, visitor);
           log("");
           log("------------------------------")
-          log("STARTING _.deepFilter(json, visitor)")
+          log("STARTING _.deepMap(json, visitor)")
           log("------------------------------")
-          var values = _.deepFilter(obj, visitor);
+          var values = _.deepMap(obj, visitor);
           log("\nDEEP FILTER RESULT:");
           log(values.map(JSON.stringify).join('\n'));
           log("");
           log("------------------------------------------------------------------")
-          log("STARTING _.walk(json, {withParent: true, prefix: 'root'}, visitor)")
+          log("STARTING _.walk(json, {prefix: 'root', withParent: true}, visitor)")
           log("------------------------------------------------------------------")
           _.walk(obj, {withParent: true, prefix: 'root'}, visitor);
         } catch (e) {

@@ -99,34 +99,51 @@ describe("lodash-walk", function () {
     });
   })
 
-  describe("deepFilter", function () {
+  describe("deepMap", function () {
     it("should collect all node.id from nodes with key 'e'", function () {
-      var result = _.deepFilter(data, function (value, key, node) {
+      var result = _.deepMap(data, function (value, key, node) {
         if (node.key === 'e')
           return node.id;
       });
       assert.lengthOf(result, 3);
     });
     it("should collect all node.path from nodes with path containing ('.e[]' or '.e.') or key 'e'", function () {
-      var result = _.deepFilter(data, function (value, key, node) {
+      var result = _.deepMap(data, function (value, key, node) {
         if (node.path.indexOf('.e[]') > -1 || node.path.indexOf('.e.') > -1 || node.key === 'e')
           return node.path;
       });
       assert.lengthOf(result, 17);
     });
     it("should collect all node with parent key 'e'", function () {
-      var result = _.deepFilter(data, { withParent: true }, function (value, key, node) {
+      var result = _.deepMap(data, { withParent: true }, function (value, key, node) {
         if (node.parent && node.parent.key === 'e')
           return node.id;
       });
       assert.lengthOf(result, 4);
     });
     it("should skip child when node.key contains 'hello'", function () {
-      var result = _.deepFilter(data, function (value, key, node) {
+      var result = _.deepMap(data, function (value, key, node) {
         if (node.key.indexOf('hello') > -1) node.skip = true;
         return node.id;
       });
       assert.notInclude(result, 'a.hello.abc');
+    });
+    it("should collect using custom result filter", function () {
+      var customData = [{a: 1}, {a: 2}, {b:3}, {c: {d: 4}, e: [[[[{f: 5, g: 6}]]]]}];
+      var result = _.deepMap(customData, {
+        filter: function(result) {
+          return result && result % 2 === 0;
+        }
+      }, function (value, key, node) {
+        return value;
+      });
+      assert.notInclude(result, 1);
+      assert.notInclude(result, 3);
+      assert.notInclude(result, 5);
+      assert.include(result, 2);
+      assert.include(result, 4);
+      assert.include(result, 6);
+      assert.lengthOf(result, 3);
     })
   });
 });
