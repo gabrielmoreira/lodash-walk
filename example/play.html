@@ -10,22 +10,33 @@
   </head>
 
   <body>
+    <div id="code" >
     <h3>JSON</h3>
-    <textarea id="json" rows=10 cols=70>{a: {c:1}, b:2}</textarea>
+    <textarea id="json" rows=10 cols=55>{a: {c:1}, b:2}</textarea>
     <h3>VISITOR</h3>
-<textarea id="visitor" rows=10 cols=70>
+<textarea id="visitor" rows=20 cols=55>
 // log(...)
 function(value, key, node) {
+
   log("NODE: " + JSON.stringify(node))
+  log("  ID: " + node.id)
   log("  KEY: " + key)
   log("  VALUE: " + JSON.stringify(value));
+  log("");
+
+  // skip walking on node children using -> node.skip = true
+  // stop walking using -> node.stop = true;
+  // get parent node using -> node.parent;
+
   return node.id;
 }
 </textarea>
-    <br>
-    <button id='visit' onclick="javascript:walk()">VISIT</button>
-    <h3>OBJECT VISITOR</h3>
-    <pre id="result"></pre>
+    </div>
+    <div id="preview" >
+          <button id='visit' onclick="javascript:walk()">VISIT</button>
+      <h3>LOG</h3>
+      <pre id="result" ></pre>
+    </div>
     <script>
       function walk() {
         try {
@@ -40,16 +51,26 @@ function(value, key, node) {
           }
           result.innerText = "";
           log("------------------------------")
+          log("INSTALL LOADSH-WALK");
+          log("------------------------------")
+          log("lodashWalk(_);");
+          log("");
+          log("------------------------------")
           log("STARTING _.walk(json, visitor)")
           log("------------------------------")
           _.walk(obj, visitor);
-
-          log("\n------------------------------")
+          log("");
+          log("------------------------------")
           log("STARTING _.deepFilter(json, visitor)")
           log("------------------------------")
           var values = _.deepFilter(obj, visitor);
           log("\nDEEP FILTER RESULT:");
           log(values.map(JSON.stringify).join('\n'));
+          log("");
+          log("------------------------------------------------------------------")
+          log("STARTING _.walk(json, {withParent: true, prefix: 'root'}, visitor)")
+          log("------------------------------------------------------------------")
+          _.walk(obj, {withParent: true, prefix: 'root'}, visitor);
         } catch (e) {
           alert("Error: " + e.message + '\n\n' + (e.stack));
         }
