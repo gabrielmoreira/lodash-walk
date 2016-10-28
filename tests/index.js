@@ -13,7 +13,9 @@ var data = {
                 ]
               ]
             },
-            bomb: true
+            bomb: true,
+            fn: function() {},
+            customObj: new function(){ }
           }
         ]
       ]
@@ -97,6 +99,12 @@ describe("lodash-walk", function () {
       });
       assert.lengthOf(ids, 16);
     });
+    it("should not walk in strings", function() {
+      var ids = []
+      _.walk(data, function (value, key, node) {
+        ids.push(node.id);
+      });
+    })
   })
 
   describe("deepMap", function () {
@@ -112,7 +120,7 @@ describe("lodash-walk", function () {
         if (node.path.indexOf('.e[]') > -1 || node.path.indexOf('.e.') > -1 || node.key === 'e')
           return node.path;
       });
-      assert.lengthOf(result, 17);
+      assert.lengthOf(result, 7);
     });
     it("should collect all node with parent key 'e'", function () {
       var result = _.deepMap(data, { withParent: true }, function (value, key, node) {

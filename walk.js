@@ -6,16 +6,18 @@ module.exports = function (_, disableMixin) {
     }
     options = options || {};
     var withParent = options.withParent || false;
+    var canVisit = options.canVisit || _.isObjectLike;
     var stop = false;
     function _walk(obj, parent, depth, visited) {
-      depth++;
       if (parent.skip) return;
       if (parent.stop || stop) {
         stop = true;
         return;
       }
+      if (!canVisit(obj)) return;
       if (visited.has(obj)) return;
       visited.add(obj);
+      depth++;
       _.forOwn(obj, function (value, key) {
         if (stop) return;
         var isArray = _.isArray(obj);
@@ -39,8 +41,7 @@ module.exports = function (_, disableMixin) {
       parent.path = options.prefix;
       parent.key = options.prefix;
     }
-    if (_.isObjectLike(obj))
-      _walk(obj, parent, 0, new Set());
+    _walk(obj, parent, 0, new Set());
   }
 
   function deepMap(obj, options, visitor) {
